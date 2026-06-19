@@ -1,0 +1,10 @@
+# Environments
+venv/
+.env
+
+# Database
+crm.db
+
+# Python Cache
+__pycache__/
+*.pyc

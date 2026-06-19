@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+streamlit
+langgraph
+langchain-groq
+langchain-core
+python-dotenv
+edge-tts
+SpeechRecognition
+pyaudio
