@@ -27,26 +27,19 @@ Plaintext
 ├── crm.db           # SQLite database with mock customer profiles
 ├── policy.md        # Company refund policy rules
 └── requirements.txt # Project dependencies
-🎥 Loom Video Walkthrough
-[INSERT YOUR LOOM VIDEO LINK HERE]
 
 🛠️ Local Setup
 Clone the repo:
-
-Bash
 git clone <YOUR_REPO_URL>
+
 Setup environment:
 Create a .env file and add your GROQ_API_KEY.
 
 Install dependencies:
-
-Bash
 pip install -r requirements.txt
+
 Run Backend:
-
-Bash
 uvicorn main:app --reload
-Run Frontend:
 
-Bash
+Run Frontend:
 streamlit run app.py
