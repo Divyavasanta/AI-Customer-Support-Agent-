@@ -19,7 +19,8 @@ LLM/AI: Groq API (Llama-3.3-70b-versatile), Whisper-large-v3.
 
 Frontend: Streamlit (Custom Aesthetic UI).
 
-📂 Project Structure
+📂**Project Structure**
+
 ├── app.py           # Streamlit Frontend (with aesthetic CSS)
 ├── main.py          # FastAPI Backend + LangGraph Agent Logic
 ├── crm.db           # SQLite database with mock customer profiles
