@@ -86,6 +86,13 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.title("🛍️ E-Commerce AI Refund Agent (Voice Enabled 🎙️)")
+with st.sidebar:
+    st.header("🧪 Test Credentials")
+    st.write("Use these mock Order IDs to test different scenarios:")
+    st.code("ORD-101", language="text") # Valid refund
+    st.code("ORD-201", language="text") # Past 30 days policy 
+    st.code("ORD-301", language="text") # Non-refundable item
+    st.code("ORD-401", language="text") # Order not delivered yet
 
 API_URL = "https://ai-customer-support-agent-caru.onrender.com/chat"
 WHISPER_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
