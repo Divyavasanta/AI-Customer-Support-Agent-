@@ -67,7 +67,9 @@ def chat_with_agent(req: ChatRequest):
     - Using any formatting breaks the UI font and background colors.
 
     ### BAD VS GOOD FORMATTING EXAMPLES:
-    ❌ BAD (DO NOT USE BACKTICKS): "The price was `$800`. Since it is an `electronics` order..."
+    ❌
+    
+    BAD (DO NOT USE BACKTICKS): "The price was `$800`. Since it is an `electronics` order..."
     ✅ GOOD (PLAIN TEXT ONLY): "The price was $800. Since it is an electronics order..."
 
     ### CRITICAL RULES

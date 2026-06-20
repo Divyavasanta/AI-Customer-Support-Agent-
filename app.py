@@ -114,7 +114,7 @@ col1, col2 = st.columns([1.5, 1])
 with col1:
     st.subheader("Customer Support Chat")
     
-    # Using st.container() to keep the spinner above the buttons
+    # FIX: Using st.container() to keep the spinner above the buttons
     chat_container = st.container()
     
     with chat_container:
@@ -162,21 +162,16 @@ with col1:
                         "message": user_input, 
                         "history": st.session_state.messages[:-1] 
                     })
+                    data = response.json()
                     
-                    # Safe Error Handling Fix
-                    if response.status_code == 200:
-                        data = response.json()
-                        bot_reply = data.get("reply", "Error getting response.")
-                        st.session_state.agent_logs = data.get("logs", [])
+                    bot_reply = data.get("reply", "Error getting response.")
+                    st.session_state.agent_logs = data.get("logs", [])
 
-                        with st.chat_message("assistant"):
-                            st.markdown(bot_reply)
-                        st.session_state.messages.append({"role": "assistant", "content": bot_reply})
-                        
-                        st.rerun() 
-                    else:
-                        st.error(f"⚠️ Backend Error ({response.status_code}): Please check your FastAPI terminal for details.")
-                        
+                    with st.chat_message("assistant"):
+                        st.markdown(bot_reply)
+                    st.session_state.messages.append({"role": "assistant", "content": bot_reply})
+                    
+                    st.rerun() 
                 except Exception as e:
                     st.error(f"Backend connection failed: {e}")
 
