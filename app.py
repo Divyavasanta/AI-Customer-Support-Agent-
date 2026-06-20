@@ -82,6 +82,17 @@ st.markdown("""
         [data-testid="stHeader"], [data-testid="stChatInput"] {
             background: transparent !important;
         }
+            /* Sidebar  dark background border */
+        [data-testid="stSidebar"] {
+            background-color: rgba(15, 25, 45, 0.95) !important;
+            border-right: 1px solid #5A9DE2 !important;
+        }
+        
+        /* Arrow button */
+        [data-testid="collapsedControl"] svg {
+            fill: #FFFFFF !important;
+            color: #FFFFFF !important;
+        }
     </style>
     """, unsafe_allow_html=True)
 
