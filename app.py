@@ -87,7 +87,7 @@ st.markdown("""
 
 st.title("🛍️ E-Commerce AI Refund Agent (Voice Enabled 🎙️)")
 
-API_URL = " https://ai-customer-support-agent-caru.onrender.com"
+API_URL = "https://ai-customer-support-agent-caru.onrender.com/chat"
 WHISPER_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
 
 DEFAULT_GREETING = "Hi there! 👋 I am your AI Support Agent. How can I help you today? You can provide your Order ID to check its status or request a refund."
