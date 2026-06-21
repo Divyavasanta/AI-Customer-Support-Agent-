@@ -105,7 +105,12 @@ with st.sidebar:
     st.code("ORD-301", language="text") # Non-refundable item
     st.code("ORD-401", language="text") # Order not delivered yet
 
+#to run on local server uncomment the following
+#API_URL = "http://localhost:8000/chat"
+
+#to run on cloud uncomment the following
 API_URL = "https://ai-customer-support-agent-caru.onrender.com/chat"
+
 WHISPER_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
 
 DEFAULT_GREETING = "Hi there! 👋 I am your AI Support Agent. How can I help you today? You can provide your Order ID to check its status or request a refund."
@@ -117,15 +122,34 @@ if "agent_logs" not in st.session_state:
 if "audio_key" not in st.session_state:
     st.session_state.audio_key = 0 
 
-def transcribe_audio(audio_bytes):
-    files = {"file": ("audio.wav", audio_bytes, "audio/wav")}
-    data = {"model": "whisper-large-v3", "response_format": "json"}
+def transcribe_audio(audio_file):
+    # FIX: Dynamically fetching correct file name and type (e.g., .webm or .wav)
+    files = {"file": (audio_file.name, audio_file.getvalue(), audio_file.type)}
+    
+    data = {
+        "model": "whisper-large-v3", 
+        "response_format": "json",
+        "language": "en",
+        "temperature": "0.0",
+        "prompt": "Customer support query regarding order status and refunds."
+    }
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}"}
     
-    response = requests.post(WHISPER_URL, headers=headers, files=files, data=data)
-    if response.status_code == 200:
-        return response.json().get("text", "")
-    return None
+    try:
+        response = requests.post(WHISPER_URL, headers=headers, files=files, data=data)
+        if response.status_code == 200:
+            text = response.json().get("text", "").strip()
+            
+            hallucinations = ["you", "you.", "thank you", "thank you.", "thanks", ""]
+            if text.lower().strip() in hallucinations:
+                return None
+            return text
+        else:
+            st.error(f"Audio API Error: {response.text}")
+            return None
+    except Exception as e:
+        st.error(f"Failed to transcribe: {str(e)}")
+        return None
 
 col1, col2 = st.columns([1.5, 1])
 
@@ -163,8 +187,13 @@ with col1:
     if audio_value:
         with chat_container: # Spinner rendered inside chat container
             with st.spinner("Transcribing your voice..."):
-                user_input = transcribe_audio(audio_value.getvalue())
+                user_input = transcribe_audio(audio_value)
                 st.session_state.audio_key += 1 
+                
+                # FIX: Show warning if hallucination was filtered out
+                if not user_input:
+                    st.warning("⚠️ I couldn't hear you clearly or there was too much background noise. Please speak a bit louder!")
+                    
     elif prompt:
         user_input = prompt
 
